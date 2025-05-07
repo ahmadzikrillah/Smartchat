@@ -61,6 +61,59 @@ function validateDatabaseStructure(data) {
 }
 
 // Fungsi untuk menggunakan data fallback
+// Fungsi untuk memuat database dengan penanganan error lebih robust
+async function loadDatabase() {
+    // Tampilkan indikator loading
+    addMessage(`<div class="loading-message">Memuat database pembelajaran...</div>`);
+    
+    try {
+        // Coba load dari cache localStorage terlebih dahulu
+        const cachedData = localStorage.getItem('cachedDatabase');
+        if (cachedData) {
+            const parsedData = JSON.parse(cachedData);
+            if (validateDatabaseStructure(parsedData)) {  // Removed 'this.'
+                dataset = parsedData;
+                console.log("Menggunakan data dari cache");
+                return;
+            }
+        }
+
+        // Load data terbaru dari server
+        const response = await fetch('database.json?_=' + new Date().getTime());
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const freshData = await response.json();
+        
+        // Validasi struktur data
+        if (!validateDatabaseStructure(freshData)) {  // Removed 'this.'
+            throw new Error("Struktur database tidak valid");
+        }
+        
+        dataset = freshData;
+        
+        // Simpan ke cache
+        localStorage.setItem('cachedDatabase', JSON.stringify(freshData));
+        console.log("Database loaded successfully");
+        
+    } catch (error) {
+        console.error("Error loading database:", error);
+        useFallbackData(error);  // Removed 'this.'
+    } finally {
+        preloadDefaultImages();  // Removed 'this.'
+    }
+}
+
+// Pindahkan fungsi-fungsi helper ke luar dari loadDatabase
+function validateDatabaseStructure(data) {
+    return data && 
+           data.topics && 
+           typeof data.topics === 'object' &&
+           Object.keys(data.topics).length > 0;
+}
+
 function useFallbackData(error) {
     dataset = {
         topics: {
@@ -123,7 +176,6 @@ function useFallbackData(error) {
     `);
 }
 
-// Fungsi untuk preload gambar default
 function preloadDefaultImages() {
     const defaultImages = [
         'images/default-cell.png',
