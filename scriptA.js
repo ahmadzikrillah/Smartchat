@@ -6,17 +6,36 @@ const sessionContext = {
     conversationHistory: []
 };
 
+// Fungsi untuk menangani error saat gambar ada (siap) atau tidak
+function handleImageLoadError(imgElement, defaultSrc = null) {
+    imgElement.onload = () => {
+        console.log(`Gambar berhasil dimuat: ${imgElement.src}`);
+        // Anda dapat menambahkan logika tambahan di sini jika perlu
+    };
+
+    imgElement.onerror = () => {
+        console.error(`Gagal memuat gambar: ${imgElement.src}`);
+        if (defaultSrc) {
+            imgElement.src = defaultSrc;
+            console.log(`Menggunakan gambar default: ${defaultSrc}`);
+        } else {
+            imgElement.style.display = 'none';
+            console.warn('Tidak ada gambar default yang ditentukan.');
+        }
+    };
+}
+
 // Fungsi untuk memuat database dengan penanganan error lebih robust
 async function loadDatabase() {
     // Tampilkan indikator loading
     addMessage(`<div class="loading-message">Memuat database pembelajaran...</div>`);
-    
+
     try {
         // Coba load dari cache localStorage terlebih dahulu
         const cachedData = localStorage.getItem('cachedDatabase');
         if (cachedData) {
             const parsedData = JSON.parse(cachedData);
-            if (validateDatabaseStructure(parsedData)) {  // Removed 'this.'
+            if (validateDatabaseStructure(parsedData)) {
                 dataset = parsedData;
                 console.log("Menggunakan data dari cache");
                 return;
@@ -25,100 +44,60 @@ async function loadDatabase() {
 
         // Load data terbaru dari server
         const response = await fetch('database.json?_=' + new Date().getTime());
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const freshData = await response.json();
-        
+
         // Validasi struktur data
-        if (!validateDatabaseStructure(freshData)) {  // Removed 'this.'
+        if (!validateDatabaseStructure(freshData)) {
             throw new Error("Struktur database tidak valid");
         }
-        
+
         dataset = freshData;
-        
+
         // Simpan ke cache
         localStorage.setItem('cachedDatabase', JSON.stringify(freshData));
         console.log("Database loaded successfully");
-        
+
     } catch (error) {
         console.error("Error loading database:", error);
-        useFallbackData(error);  // Removed 'this.'
+        useFallbackData(error);
     } finally {
-        preloadDefaultImages();  // Removed 'this.'
+        preloadDefaultImages();
     }
 }
 
 // Pindahkan fungsi-fungsi helper ke luar dari loadDatabase
 function validateDatabaseStructure(data) {
-    return data && 
-           data.topics && 
+    return data &&
+           data.topics &&
            typeof data.topics === 'object' &&
            Object.keys(data.topics).length > 0;
 }
 
 function useFallbackData(error) {
+    addMessage(`<div class="error-message">Terjadi kesalahan saat memuat data: ${error.message}. Menggunakan data dasar.</div>`);
     dataset = {
-        topics: {
-            "Biologi": {
-                description: "Materi Biologi Dasar",
-                subtopics: {
-                    "Sel": {
-                        description: "Pengenalan sel",
-                        QnA: [{
-                            patterns: ["apa itu sel", "definisi sel"],
-                            responses: [
-                                "Sel adalah unit terkecil penyusun makhluk hidup.",
-                                "Struktur dasar semua organisme terdiri dari sel."
-                            ],
-                            diagram: "images/default-cell.png",
-                            reference: "Buku Biologi Dasar"
-                        }]
-                    }
-                }
-            },
-            "Profil Guru": {
-                description: "Informasi pengajar",
-                subtopics: {
-                    "Guru Biologi": {
-                        QnA: [{
-                            patterns: ["siapa guru biologi", "pengajar biologi"],
-                            responses: [
-                                "Guru Biologi: Ibu Siti Nurhaliza, M.Pd.",
-                                "Pengajar Biologi: Ibu Siti (email: siti@sekolah.example.id)"
-                            ],
-                            photo: "images/default-teacher.png",
-                            jadwal: "Senin & Rabu (08.00-12.00)"
-                        }]
-                    },
-                    "Guru Fisika": {
-                        QnA: [{
-                            patterns: ["nama guru fisika", "pengajar fisika"],
-                            responses: [
-                                "Guru Fisika: Pak Budi Santoso, S.Pd.",
-                                "Pengajar Fisika: Pak Budi (HP: 0812-3456-7890)"
-                            ],
-                            photo: "images/default-teacher.png",
-                            jadwal: "Selasa & Kamis (09.00-13.00)"
-                        }]
+        "topics": {
+            "Contoh": {
+                "description": "Contoh Data Dasar",
+                "subtopics": {
+                    "Sapaan": {
+                        "description": "Sapaan sederhana",
+                        "QnA": [
+                            {
+                                "patterns": ["halo", "hai"],
+                                "responses": ["Halo juga!", "Hai! Ada yang bisa saya bantu?"]
+                            }
+                        ]
                     }
                 }
             }
-        },
-        metadata: {
-            sumber_referensi: ["Data fallback sistem"],
-            last_updated: new Date().toISOString()
         }
     };
-    
-    addMessage(`
-        <div class="error-message">
-            <strong>Peringatan:</strong> Database offline. Menggunakan data dasar.<br>
-            <small>${error.message}</small>
-        </div>
-    `);
 }
 
 function preloadDefaultImages() {
@@ -126,13 +105,11 @@ function preloadDefaultImages() {
         'images/default-cell.png',
         'images/default-teacher.png'
     ];
-    
+
     defaultImages.forEach(imgUrl => {
         const img = new Image();
+        handleImageLoadError(img); // Terapkan handler (tanpa default, hanya log error)
         img.src = imgUrl;
-        img.onerror = () => {
-            console.warn(`Gambar default tidak ditemukan: ${imgUrl}`);
-        };
     });
 }
 
@@ -155,17 +132,17 @@ function tokenize(text) {
 function calculateMatchScore(query, pattern) {
     const queryTokens = new Set(tokenize(query));
     const patternTokens = new Set(tokenize(pattern));
-    
+
     const intersection = new Set([...queryTokens].filter(t => patternTokens.has(t)));
     const union = new Set([...queryTokens, ...patternTokens]);
     let score = intersection.size / union.size;
-    
+
     if (sessionContext.currentTopic && pattern.includes(sessionContext.currentTopic)) {
         score *= 1.3;
     }
-    
+
     const questionTypes = {
-        'apa': 1.2, 
+        'apa': 1.2,
         'bagaimana': 1.15,
         'mengapa': 1.1
     };
@@ -175,7 +152,7 @@ function calculateMatchScore(query, pattern) {
             break;
         }
     }
-    
+
     return Math.min(score, 1.0);
 }
 
@@ -207,7 +184,7 @@ function findBestMatch(query) {
                 }
             }
         }
-        
+
         if (bestMatch.score > 0.7) return bestMatch;
     }
 
@@ -240,6 +217,13 @@ async function formatResponse(match) {
 
     // Handle khusus untuk profil guru
     if (match.topic === "Profil Guru") {
+        const imageUrl = match.diagram || 'images/default-guru.png';
+        const imgElement = document.createElement('img');
+        imgElement.id = 'guruFoto';
+        imgElement.alt = 'Foto Guru';
+        handleImageLoadError(imgElement, 'images/default-guru.png'); // Terapkan handler
+        imgElement.src = imageUrl; // Set sumber setelah handler
+
         return `
             <div class="answer-box">
                 <div class="topic-header">
@@ -247,10 +231,7 @@ async function formatResponse(match) {
                     <span class="subtopic">${match.subtopic}</span>
                 </div>
                 <div class="guru-profile">
-                    <img src="${match.diagram || 'images/default-guru.png'}" 
-                         alt="Foto Guru" 
-                         onerror="this.src='images/default-guru.png'">
-                    <div class="guru-info">
+                    ${imgElement.outerHTML} <div class="guru-info">
                         <p>${match.response}</p>
                     </div>
                 </div>
@@ -267,26 +248,30 @@ async function formatResponse(match) {
             <div class="topic-header">
                 <span class="topic">${match.topic}</span>
                 <span class="subtopic">${match.subtopic}</span>
-                ${sessionContext.currentTopic === match.topic ? 
-                 '<span class="context-badge">(Topik Terkait)</span>' : ''}
+                ${sessionContext.currentTopic === match.topic ?
+                    '<span class="context-badge">(Topik Terkait)</span>' : ''}
             </div>
             <div class="answer-content">${match.response}</div>
     `;
-    
+
     if (match.diagram) {
         const imageExists = await checkImageExists(match.diagram);
         if (imageExists) {
-            html += `<div class="diagram"><img src="${match.diagram}" alt="${match.subtopic}"></div>`;
+            const imgElement = document.createElement('img');
+            imgElement.src = match.diagram;
+            imgElement.alt = match.subtopic;
+            handleImageLoadError(imgElement); // Terapkan handler
+            html += `<div class="diagram">${imgElement.outerHTML}</div>`;
         }
     }
-    
+
     html += `
         <div class="feedback-buttons">
             <button onclick="handleFeedback(this, 'up')">👍</button>
             <button onclick="handleFeedback(this, 'down')">👎</button>
         </div>
     </div>`;
-    
+
     return html;
 }
 
@@ -308,7 +293,7 @@ function getFallbackResponse() {
                 <ul>${subtopics.map(st => `<li>${st}</li>`).join('')}</ul>
             </div>`;
     }
-    
+
     const topics = Object.keys(dataset.topics);
     return `
         <div class="not-found">
@@ -409,15 +394,15 @@ function loadConversation() {
 // ================ [9] FEEDBACK SYSTEM ================ //
 function handleFeedback(button, type) {
     const answerBox = button.closest('.answer-box');
-    answerBox.querySelector('.feedback-buttons').innerHTML = 
+    answerBox.querySelector('.feedback-buttons').innerHTML =
         `<span>${type === 'up' ? 'Terima kasih!' : 'Akan kami perbaiki...'}</span>`;
-    
+
     const feedbackData = {
         question: answerBox.querySelector('.answer-content').textContent,
         rating: type,
         timestamp: new Date()
     };
-    
+
     const feedbackHistory = JSON.parse(localStorage.getItem('feedbackHistory') || '[]');
     feedbackHistory.push(feedbackData);
     localStorage.setItem('feedbackHistory', JSON.stringify(feedbackHistory));
