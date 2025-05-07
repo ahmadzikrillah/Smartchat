@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asisten IPA - Chatbot Pembelajaran</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <h1>Asisten IPA</h1>
+            <p>Chatbot Pembelajaran Biologi & Fisika</p>
+            <button id="clearChat" class="clear-btn">Hapus Percakapan</button>
+        </div>
+
+        <!-- Chatbox -->
+        <div id="chatbox" class="chatbox">
+            <!-- Pesan akan muncul di sini secara dinamis -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <input 
+                type="text" 
+                id="userInput" 
+                placeholder="Tanyakan tentang Biologi, Fisika, atau Profil Guru..."
+                autocomplete="off"
+            >
+            <button id="sendButton">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.json" type="module"></script> <!-- Jika menggunakan JSON eksternal -->
+    <script src="scriptA.js" defer></script>
+</body>
+</html>
