@@ -6,61 +6,6 @@ const sessionContext = {
     conversationHistory: []
 };
 
-
-// Fungsi untuk memuat database dengan penanganan error lebih robust
-async function loadDatabase() {
-    // Tampilkan indikator loading
-    addMessage(`<div class="loading-message">Memuat database pembelajaran...</div>`);
-    
-    try {
-        // Coba load dari cache localStorage terlebih dahulu
-        const cachedData = localStorage.getItem('cachedDatabase');
-        if (cachedData) {
-            const parsedData = JSON.parse(cachedData);
-            if (this.validateDatabaseStructure(parsedData)) {
-                dataset = parsedData;
-                console.log("Menggunakan data dari cache");
-                return; // Keluar jika data cache valid
-            }
-        }
-
-        // Load data terbaru dari server
-        const response = await fetch('database.json?_=' + new Date().getTime());
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const freshData = await response.json();
-        
-        // Validasi struktur data
-        if (!this.validateDatabaseStructure(freshData)) {
-            throw new Error("Struktur database tidak valid");
-        }
-        
-        dataset = freshData;
-        
-        // Simpan ke cache
-        localStorage.setItem('cachedDatabase', JSON.stringify(freshData));
-        console.log("Database loaded successfully");
-        
-    } catch (error) {
-        console.error("Error loading database:", error);
-        this.useFallbackData(error);
-    } finally {
-        this.preloadDefaultImages();
-    }
-}
-
-// Fungsi validasi struktur database
-function validateDatabaseStructure(data) {
-    return data && 
-           data.topics && 
-           typeof data.topics === 'object' &&
-           Object.keys(data.topics).length > 0;
-}
-
-// Fungsi untuk menggunakan data fallback
 // Fungsi untuk memuat database dengan penanganan error lebih robust
 async function loadDatabase() {
     // Tampilkan indikator loading
