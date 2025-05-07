@@ -1,180 +1,336 @@
 {
-    "version": "1.0",
-    "last_updated": "2023-11-15",
-    "topics": {
-        "Biologi": {
-            "description": "Materi Biologi SMP Kelas 7-9",
-            "subtopics": {
-                "Sel": {
-                    "description": "Struktur dan fungsi sel",
-                    "QnA": [
-                        {
-                            "patterns": [
-                                "apa itu sel",
-                                "definisi sel",
-                                "jelaskan tentang sel"
-                            ],
-                            "responses": [
-                                "Sel adalah unit terkecil penyusun makhluk hidup. Terdiri dari membran sel, sitoplasma, dan inti sel.",
-                                "Dalam biologi, sel merupakan struktur dasar semua organisme. Contoh: sel tumbuhan memiliki dinding sel, sel hewan tidak."
-                            ],
-                            "diagram": "images/sel.png",
-                            "reference": "Buku Biologi SMP Kelas 7 Bab 1",
-                            "keywords": [
-                                "sel",
-                                "membran",
-                                "sitoplasma",
-                                "nukleus"
-                            ]
-                        },
-                        {
-                            "patterns": [
-                                "fungsi inti sel",
-                                "apa tugas nukleus"
-                            ],
-                            "responses": [
-                                "Inti sel (nukleus) berfungsi mengontrol aktivitas sel dan menyimpan materi genetik (DNA).",
-                                "Nukleus adalah pusat kendali sel yang mengatur pembelahan sel dan sintesis protein."
-                            ],
-                            "reference": "Buku Biologi SMP Kelas 7 Bab 2",
-                            "difficulty": "medium"
-                        }
-                    ]
-                },
-                "Fotosintesis": {
-                    "description": "Proses pembuatan makanan pada tumbuhan",
-                    "QnA": [
-                        {
-                            "patterns": [
-                                "proses fotosintesis",
-                                "bagaimana tumbuhan membuat makanan",
-                                "tahapan fotosintesis"
-                            ],
-                            "responses": [
-                                "Fotosintesis terjadi di kloroplas dengan rumus: 6CO₂ + 6H₂O + cahaya → C₆H₁₂O₆ + 6O₂",
-                                "Tumbuhan mengubah karbon dioksida dan air menjadi glukosa menggunakan energi cahaya matahari melalui dua tahap: reaksi terang dan siklus Calvin."
-                            ],
-                            "diagram": "images/fotosintesis.png",
-                            "reference": "Buku Biologi SMP Kelas 8 Bab 3",
-                            "video": "videos/fotosintesis.mp4"
-                        }
-                    ]
-                }
+  "version": "1.0",
+  "last_updated": "2023-11-15",
+  "topics": {
+    "Biologi": {
+      "description": "Materi Biologi SMP Kelas 7-9",
+      "subtopics": {
+        "Sel": {
+          "description": "Struktur dan fungsi sel",
+          "QnA": [
+            {
+              "patterns": [
+                "apa itu sel",
+                "definisi sel",
+                "jelaskan tentang sel"
+              ],
+              "responses": [
+                "Sel adalah unit terkecil penyusun makhluk hidup. Terdiri dari membran sel, sitoplasma, dan inti sel.",
+                "Dalam biologi, sel merupakan struktur dasar semua organisme. Contoh: sel tumbuhan memiliki dinding sel, sel hewan tidak."
+              ],
+              "diagram": "images/sel.png",
+              "reference": "Buku Biologi SMP Kelas 7 Bab 1",
+              "keywords": [
+                "sel",
+                "membran",
+                "sitoplasma",
+                "nukleus"
+              ]
+            },
+            {
+              "patterns": [
+                "fungsi inti sel",
+                "apa tugas nukleus"
+              ],
+              "responses": [
+                "Inti sel (nukleus) berfungsi mengontrol aktivitas sel dan menyimpan materi genetik (DNA).",
+                "Nukleus adalah pusat kendali sel yang mengatur pembelahan sel dan sintesis protein."
+              ],
+              "reference": "Buku Biologi SMP Kelas 7 Bab 2",
+              "difficulty": "medium"
+            },
+            {
+              "patterns": [
+                "apa saja organel sel",
+                "sebutkan bagian-bagian sel"
+              ],
+              "responses": [
+                "Organel sel meliputi inti sel, mitokondria, ribosom, retikulum endoplasma, badan Golgi, lisosom, dan vakuola.",
+                "Setiap organel sel memiliki fungsi spesifik dalam menjalankan aktivitas sel."
+              ],
+              "reference": "Buku Biologi SMP Kelas 7 Bab 3"
+            },
+            {
+              "patterns": [
+                "perbedaan sel hewan dan tumbuhan",
+                "ciri-ciri sel tumbuhan yang tidak ada di sel hewan"
+              ],
+              "responses": [
+                "Sel tumbuhan memiliki dinding sel, kloroplas, dan vakuola besar, yang tidak ditemukan pada sel hewan.",
+                "Sel hewan tidak memiliki dinding sel dan kloroplas, serta vakuolanya berukuran kecil atau tidak ada."
+              ],
+              "diagram": "images/sel_hewan_tumbuhan.png",
+              "reference": "Buku Biologi SMP Kelas 7 Bab 4",
+              "difficulty": "medium"
+            },
+            {
+              "patterns": [
+                "apa itu pembelahan sel",
+                "jenis-jenis pembelahan sel"
+              ],
+              "responses": [
+                "Pembelahan sel adalah proses di mana sel membagi diri menjadi dua atau lebih sel anak.",
+                "Jenis pembelahan sel utama adalah mitosis (untuk pertumbuhan dan perbaikan) dan meiosis (untuk pembentukan sel gamet)."
+              ],
+              "reference": "Buku Biologi SMP Kelas 8 Bab 1"
+            },
+            {
+              "patterns": [
+                "apa fungsi mitokondria",
+                "peran mitokondria dalam sel"
+              ],
+              "responses": [
+                "Mitokondria adalah 'pembangkit tenaga' sel, berfungsi menghasilkan energi melalui respirasi seluler.",
+                "Proses respirasi seluler di mitokondria mengubah glukosa dan oksigen menjadi energi (ATP), karbon dioksida, dan air."
+              ],
+              "reference": "Buku Biologi SMP Kelas 8 Bab 2"
             }
+          ]
         },
-        "Fisika": {
-            "description": "Materi Fisika SMP Kelas 7-9",
-            "subtopics": {
-                "Gaya": {
-                    "description": "Pengertian dan jenis-jenis gaya",
-                    "QnA": [
-                        {
-                            "patterns": [
-                                "apa itu gaya",
-                                "definisi gaya dalam fisika"
-                            ],
-                            "responses": [
-                                "Gaya adalah tarikan atau dorongan yang dapat mengubah keadaan benda. Satuan gaya adalah newton (N).",
-                                "Contoh gaya: gravitasi, gesek, magnet, dan listrik. Gaya dapat menyebabkan benda diam menjadi bergerak atau mengubah arah gerak."
-                            ],
-                            "reference": "Buku Fisika SMP Kelas 7 Bab 5",
-                            "example": "Contoh: Saat mendorong meja, kita memberikan gaya pada meja tersebut."
-                        },
-                        {
-                            "patterns": [
-                                "rumus gaya",
-                                "hukum newton tentang gerak"
-                            ],
-                            "responses": [
-                                "Hukum II Newton: F = m × a (Gaya = massa × percepatan).",
-                                "Hukum I Newton: Benda diam akan tetap diam kecuali ada gaya eksternal yang bekerja. Hukum III Newton: Untuk setiap aksi ada reaksi yang sama besar dan berlawanan arah."
-                            ],
-                            "diagram": "images/hukum-newton.png",
-                            "difficulty": "hard"
-                        }
-                    ]
-                },
-                "Energi": {
-                    "description": "Bentuk-bentuk energi",
-                    "QnA": [
-                        {
-                            "patterns": [
-                                "jenis energi",
-                                "apa saja bentuk energi"
-                            ],
-                            "responses": [
-                                "Bentuk energi: 1. Kinetik (gerak), 2. Potensial (posisi), 3. Panas, 4. Listrik, 5. Kimia, 6. Nuklir, 7. Cahaya.",
-                                "Energi tidak dapat diciptakan/dimusnahkan, hanya berubah bentuk (Hukum Kekekalan Energi). Contoh: Energi kimia dalam makanan diubah menjadi energi kinetik saat kita bergerak."
-                            ],
-                            "reference": "Buku Fisika SMP Kelas 8 Bab 4",
-                            "experiment": "percobaan-energi.pdf"
-                        }
-                    ]
-                }
+        "Fotosintesis": {
+          "description": "Proses pembuatan makanan pada tumbuhan",
+          "QnA": [
+            {
+              "patterns": [
+                "proses fotosintesis",
+                "bagaimana tumbuhan membuat makanan",
+                "tahapan fotosintesis"
+              ],
+              "responses": [
+                "Fotosintesis terjadi di kloroplas dengan rumus: 6CO₂ + 6H₂O + cahaya → C₆H₁₂O₆ + 6O₂",
+                "Tumbuhan mengubah karbon dioksida dan air menjadi glukosa menggunakan energi cahaya matahari melalui dua tahap: reaksi terang dan siklus Calvin."
+              ],
+              "diagram": "images/fotosintesis.png",
+              "reference": "Buku Biologi SMP Kelas 8 Bab 3",
+              "video": "videos/fotosintesis.mp4"
+            },
+            {
+              "patterns": [
+                "apa itu klorofil",
+                "fungsi klorofil"
+              ],
+              "responses": [
+                "Klorofil adalah pigmen hijau yang terdapat di kloroplas tumbuhan.",
+                "Fungsi utama klorofil adalah menyerap energi cahaya matahari yang dibutuhkan untuk proses fotosintesis."
+              ],
+              "reference": "Buku Biologi SMP Kelas 8 Bab 4"
+            },
+            {
+              "patterns": [
+                "faktor yang mempengaruhi fotosintesis",
+                "apa saja yang mempengaruhi laju fotosintesis"
+              ],
+              "responses": [
+                "Faktor-faktor yang mempengaruhi fotosintesis antara lain intensitas cahaya, konsentrasi karbon dioksida, suhu, dan ketersediaan air.",
+                "Laju fotosintesis akan meningkat seiring dengan peningkatan intensitas cahaya dan konsentrasi karbon dioksida hingga batas tertentu."
+              ],
+              "reference": "Buku Biologi SMP Kelas 9 Bab 1"
+            },
+            {
+              "patterns": [
+                "perbedaan reaksi terang dan gelap fotosintesis",
+                "tahapan fotosintesis dan tempat terjadinya"
+              ],
+              "responses": [
+                "Reaksi terang terjadi di membran tilakoid dan menghasilkan ATP dan NADPH, sedangkan reaksi gelap (siklus Calvin) terjadi di stroma dan menghasilkan glukosa.",
+                "Reaksi terang membutuhkan cahaya, sedangkan reaksi gelap tidak secara langsung membutuhkan cahaya."
+              ],
+              "reference": "Buku Biologi SMP Kelas 9 Bab 2"
             }
-        },
-        "Profil Guru": {
-            "description": "Informasi pengajar IPA",
-            "subtopics": {
-                "Guru Biologi": {
-                    "QnA": [
-                        {
-                            "patterns": [
-                                "siapa guru biologi",
-                                "nama pengajar biologi",
-                                "bu siti"
-                            ],
-                            "responses": [
-                                "Ibu Dr. Siti Nurhaliza, M.Pd.<br>• Lulusan Universitas Pendidikan Indonesia<br>• Spesialisasi Biologi Sel<br>• Pengalaman 10 tahun mengajar<br>• Email: siti@sekolah.example.id",
-                                "Guru Biologi kami Ibu Siti:<br><img src='images/guru-biologi.jpg' style='width:100px;border-radius:50%;'><br>Jadwal konsultasi: Senin & Rabu (08.00-12.00)"
-                            ],
-                            "photo": "images/guru-biologi.jpg",
-                            "jadwal": "Senin & Rabu (08.00-12.00)",
-                            "prestasi": [
-                                "Juara 1 Guru Berprestasi Tingkat Provinsi 2022",
-                                "Penulis Buku 'Belajar Biologi Menyenangkan'"
-                            ]
-                        }
-                    ]
-                },
-                "Guru Fisika": {
-                    "QnA": [
-                        {
-                            "patterns": [
-                                "nama guru fisika",
-                                "profil pengajar fisika",
-                                "pak budi"
-                            ],
-                            "responses": [
-                                "Pak Budi Santoso, S.Pd.<br>• Alumni Institut Teknologi Bandung<br>• Ahli Fisika Kuantum<br>• Pengalaman 8 tahun mengajar<br>• Nomor HP: 0812-3456-7890 (WA hanya untuk urusan sekolah)",
-                                "Guru Fisika kami Pak Budi:<br><img src='images/guru-fisika.jpg' style='width:100px;border-radius:50%;'><br>Jadwal: Selasa & Kamis (09.00-13.00)"
-                            ],
-                            "photo": "images/guru-fisika.jpg",
-                            "jadwal": "Selasa & Kamis (09.00-13.00)",
-                            "research": "Penerapan Fisika Kuantum dalam Pendidikan SMP"
-                        }
-                    ]
-                }
-            }
+          ]
         }
+      }
     },
-    "metadata": {
-        "sumber_referensi": [
-            "Kurikulum 2013 Revisi",
-            "Buku IPA SMP Kelas 7-9 Penerbit Erlangga",
-            "Modul Ajar Kemdikbud",
-            "Jurnal Pendidikan Sains Nasional"
-        ],
-        "penyusun": {
-            "nama": "Tim Pengembang Sekolah XYZ",
-            "anggota": [
-                "Dr. Ahmad Faisal (Koordinator)",
-                "Siti Aminah, M.Pd. (Ahli Biologi)",
-                "Budi Santoso, S.Pd. (Ahli Fisika)",
-                "Dewi Lestari (Developer)"
-            ],
-            "tahun": 2023
+    "Fisika": {
+      "description": "Materi Fisika SMP Kelas 7-9",
+      "subtopics": {
+        "Gaya": {
+          "description": "Pengertian dan jenis-jenis gaya",
+          "QnA": [
+            {
+              "patterns": [
+                "apa itu gaya",
+                "definisi gaya dalam fisika"
+              ],
+              "responses": [
+                "Gaya adalah tarikan atau dorongan yang dapat mengubah keadaan benda. Satuan gaya adalah newton (N).",
+                "Contoh gaya: gravitasi, gesek, magnet, dan listrik. Gaya dapat menyebabkan benda diam menjadi bergerak atau mengubah arah gerak."
+              ],
+              "reference": "Buku Fisika SMP Kelas 7 Bab 5",
+              "example": "Contoh: Saat mendorong meja, kita memberikan gaya pada meja tersebut."
+            },
+            {
+              "patterns": [
+                "rumus gaya",
+                "hukum newton tentang gerak"
+              ],
+              "responses": [
+                "Hukum II Newton: F = m × a (Gaya = massa × percepatan).",
+                "Hukum I Newton: Benda diam akan tetap diam kecuali ada gaya eksternal yang bekerja. Hukum III Newton: Untuk setiap aksi ada reaksi yang sama besar dan berlawanan arah."
+              ],
+              "diagram": "images/hukum-newton.png",
+              "difficulty": "hard"
+            },
+            {
+              "patterns": [
+                "apa itu gaya gravitasi",
+                "contoh gaya gravitasi"
+              ],
+              "responses": [
+                "Gaya gravitasi adalah gaya tarik-menarik antara dua benda bermassa.",
+                "Contoh gaya gravitasi adalah jatuhnya buah dari pohon dan planet yang mengorbit matahari."
+              ],
+              "reference": "Buku Fisika SMP Kelas 7 Bab 6"
+            },
+            {
+              "patterns": [
+                "apa itu gaya gesek",
+                "jenis-jenis gaya gesek"
+              ],
+              "responses": [
+                "Gaya gesek adalah gaya yang berlawanan dengan arah gerak benda akibat sentuhan dengan permukaan lain.",
+                "Jenis-jenis gaya gesek antara lain gesek statis, gesek kinetis, dan gesek fluida."
+              ],
+              "reference": "Buku Fisika SMP Kelas 8 Bab 1"
+            },
+            {
+              "patterns": [
+                "apa itu gaya magnet",
+                "contoh gaya magnet dalam kehidupan sehari-hari"
+              ],
+              "responses": [
+                "Gaya magnet adalah gaya tarik atau dorong yang dihasilkan oleh magnet atau arus listrik.",
+                "Contoh gaya magnet adalah kompas yang menunjuk arah utara dan gaya tarik antara magnet dengan benda besi."
+              ],
+              "reference": "Buku Fisika SMP Kelas 8 Bab 2"
+            },
+            {
+              "patterns": [
+                "apa itu gaya listrik",
+                "jenis muatan listrik"
+              ],
+              "responses": [
+                "Gaya listrik adalah gaya tarik atau dorong antara benda-benda bermuatan listrik.",
+                "Jenis muatan listrik ada dua, yaitu muatan positif dan muatan negatif."
+              ],
+              "reference": "Buku Fisika SMP Kelas 9 Bab 1"
+            }
+          ]
         },
-        "catatan": "Database ini diperbarui setiap semester. Terakhir diverifikasi oleh Tim Kurikulum pada 15 November 2023."
+        "Energi": {
+          "description": "Bentuk-bentuk energi",
+          "QnA": [
+            {
+              "patterns": [
+                "jenis energi",
+                "apa saja bentuk energi"
+              ],
+              "responses": [
+                "Bentuk energi: 1. Kinetik (gerak), 2. Potensial (posisi), 3. Panas, 4. Listrik, 5. Kimia, 6. Nuklir, 7. Cahaya.",
+                "Energi tidak dapat diciptakan/dimusnahkan, hanya berubah bentuk (Hukum Kekekalan Energi). Contoh: Energi kimia dalam makanan diubah menjadi energi kinetik saat kita bergerak."
+              ],
+              "reference": "Buku Fisika SMP Kelas 8 Bab 4",
+              "experiment": "percobaan-energi.pdf"
+            },
+            {
+              "patterns": [
+                "apa itu energi kinetik",
+                "contoh energi kinetik"
+              ],
+              "responses": [
+                "Energi kinetik adalah energi yang dimiliki benda karena gerakannya.",
+                "Contoh energi kinetik adalah mobil yang bergerak, air yang mengalir, dan angin bertiup."
+              ],
+              "reference": "Buku Fisika SMP Kelas 8 Bab 5"
+            },
+            {
+              "patterns": [
+                "apa itu energi potensial",
+                "contoh energi potensial"
+              ],
+              "responses": [
+                "Energi potensial adalah energi yang dimiliki benda karena posisi atau keadaannya.",
+                "Contoh energi potensial adalah buah yang tergantung di pohon dan pegas yang diregangkan."
+              ],
+              "reference": "Buku Fisika SMP Kelas 9 Bab 2"
+            },
+            {
+              "patterns": [
+                "apa itu energi panas",
+                "cara perpindahan energi panas"
+              ],
+              "responses": [
+                "Energi panas adalah energi yang berkaitan dengan suhu suatu benda.",
+                "Energi panas dapat berpindah melalui konduksi, konveksi, dan radiasi."
+              ],
+              "reference": "Buku Fisika SMP Kelas 7 Bab 7"
+            }
+          ]
+        }
+      }
+    },
+    "Profil Guru": {
+      "description": "Informasi pengajar IPA",
+      "subtopics": {
+        "Guru Biologi": {
+          "QnA": [
+            {
+              "patterns": [
+                "siapa guru biologi",
+                "nama pengajar biologi",
+                "bu siti"
+              ],
+              "responses": [
+                "Ibu Dr. Siti Nurhaliza, M.Pd.<br>• Lulusan Universitas Pendidikan Indonesia<br>• Spesialisasi Biologi Sel<br>• Pengalaman 10 tahun mengajar<br>• Email: siti@sekolah.example.id",
+                "Guru Biologi kami Ibu Siti:<br><img src='images/guru-biologi.jpg' style='width:100px;border-radius:50%;'><br>Jadwal konsultasi: Senin & Rabu (08.00-12.00)"
+              ],
+              "photo": "images/guru-biologi.jpg",
+              "jadwal": "Senin & Rabu (08.00-12.00)",
+              "prestasi": [
+                "Juara 1 Guru Berprestasi Tingkat Provinsi 2022",
+                "Penulis Buku 'Belajar Biologi Menyenangkan'"
+              ]
+            }
+          ]
+        },
+        "Guru Fisika": {
+          "QnA": [
+            {
+              "patterns": [
+                "nama guru ipa",
+                "Guru ipa ",
+                "pak kiki"
+              ],
+              "responses": [
+                "Pak Ahmad Zikrillah, S.Pd.<br>• Alumni Institut Univ. Krisnadwipayana<br>• Ahli Fisika Kuantum<br>• Pengalaman 8 tahun mengajar<br>• Nomor HP: 0815-8877-530 (WA hanya untuk urusan sekolah)",
+                "Guru Fisika kami Pak Budi:<br><img src='images/guru-fisika.jpg' style='width:100px;border-radius:50%;'><br>Jadwal: Senin - Sabtu (07.00-13.00)"
+              ],
+              "photo": "images/guru-fisika.jpg",
+              "jadwal": "Selasa - Kamis (07.00-13.00)",
+              "research": "Penerapan Fisika Kuantum dalam Pendidikan SMP"
+            }
+          ]
+        }
+      }
     }
+  },
+  "metadata": {
+    "sumber_referensi": [
+      "Kurikulum 2013 Revisi",
+      "Buku IPA SMP Kelas 7-9 Penerbit Erlangga",
+      "Modul Ajar Kemdikbud",
+      "Jurnal Pendidikan Sains Nasional"
+    ],
+    "penyusun": {
+      "nama": "Tim Pengembang Sekolah XYZ",
+      "anggota": [
+        "Dr. Ahmad Zikrillah (Koordinator)",
+        "Siti Aminah, M.Pd. (Ahli Biologi)",
+        "Budi Santoso, S.Pd. (Ahli Fisika)",
+        "Dewi Lestari (Developer)"
+      ],
+      "tahun": 2023
+    },
+    "catatan": "Database ini diperbarui setiap semester. Terakhir diverifikasi oleh Tim Kurikulum pada 15 November 2024."
+  }
 }
