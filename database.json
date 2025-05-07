@@ -18,7 +18,7 @@
                 "Sel adalah unit terkecil penyusun makhluk hidup. Terdiri dari membran sel, sitoplasma, dan inti sel.",
                 "Dalam biologi, sel merupakan struktur dasar semua organisme. Contoh: sel tumbuhan memiliki dinding sel, sel hewan tidak."
               ],
-              "diagram": "images/sel.png",
+              "diagram": "imag/sel tumbuhan.jpeg",
               "reference": "Buku Biologi SMP Kelas 7 Bab 1",
               "keywords": [
                 "sel",
@@ -100,7 +100,7 @@
                 "Fotosintesis terjadi di kloroplas dengan rumus: 6CO₂ + 6H₂O + cahaya → C₆H₁₂O₆ + 6O₂",
                 "Tumbuhan mengubah karbon dioksida dan air menjadi glukosa menggunakan energi cahaya matahari melalui dua tahap: reaksi terang dan siklus Calvin."
               ],
-              "diagram": "images/fotosintesis.png",
+              "diagram": "img/fotosintesis.png",
               "reference": "Buku Biologi SMP Kelas 8 Bab 3",
               "video": "videos/fotosintesis.mp4"
             },
@@ -168,7 +168,7 @@
                 "Hukum II Newton: F = m × a (Gaya = massa × percepatan).",
                 "Hukum I Newton: Benda diam akan tetap diam kecuali ada gaya eksternal yang bekerja. Hukum III Newton: Untuk setiap aksi ada reaksi yang sama besar dan berlawanan arah."
               ],
-              "diagram": "images/hukum-newton.png",
+              "diagram": "imag/newton.gif",
               "difficulty": "hard"
             },
             {
