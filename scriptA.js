@@ -6,42 +6,137 @@ const sessionContext = {
     conversationHistory: []
 };
 
-// Fungsi untuk memuat database
+
+// Fungsi untuk memuat database dengan penanganan error lebih robust
 async function loadDatabase() {
+    // Tampilkan indikator loading
+    addMessage(`<div class="loading-message">Memuat database pembelajaran...</div>`);
+    
     try {
-        const response = await fetch('database.json');
-        if (!response.ok) throw new Error("Gagal memuat database");
-        dataset = await response.json();
+        // Coba load dari cache localStorage terlebih dahulu
+        const cachedData = localStorage.getItem('cachedDatabase');
+        if (cachedData) {
+            const parsedData = JSON.parse(cachedData);
+            if (this.validateDatabaseStructure(parsedData)) {
+                dataset = parsedData;
+                console.log("Menggunakan data dari cache");
+                return; // Keluar jika data cache valid
+            }
+        }
+
+        // Load data terbaru dari server
+        const response = await fetch('database.json?_=' + new Date().getTime());
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const freshData = await response.json();
+        
+        // Validasi struktur data
+        if (!this.validateDatabaseStructure(freshData)) {
+            throw new Error("Struktur database tidak valid");
+        }
+        
+        dataset = freshData;
+        
+        // Simpan ke cache
+        localStorage.setItem('cachedDatabase', JSON.stringify(freshData));
         console.log("Database loaded successfully");
+        
     } catch (error) {
         console.error("Error loading database:", error);
-        // Fallback ke data default jika error
-        dataset = {
-            topics: {
-                "Biologi": {
-                    subtopics: {
-                        "Sel": {
-                            QnA: [{
-                                patterns: ["apa itu sel"],
-                                responses: ["Sel adalah unit terkecil makhluk hidup."]
-                            }]
-                        }
+        this.useFallbackData(error);
+    } finally {
+        this.preloadDefaultImages();
+    }
+}
+
+// Fungsi validasi struktur database
+function validateDatabaseStructure(data) {
+    return data && 
+           data.topics && 
+           typeof data.topics === 'object' &&
+           Object.keys(data.topics).length > 0;
+}
+
+// Fungsi untuk menggunakan data fallback
+function useFallbackData(error) {
+    dataset = {
+        topics: {
+            "Biologi": {
+                description: "Materi Biologi Dasar",
+                subtopics: {
+                    "Sel": {
+                        description: "Pengenalan sel",
+                        QnA: [{
+                            patterns: ["apa itu sel", "definisi sel"],
+                            responses: [
+                                "Sel adalah unit terkecil penyusun makhluk hidup.",
+                                "Struktur dasar semua organisme terdiri dari sel."
+                            ],
+                            diagram: "images/default-cell.png",
+                            reference: "Buku Biologi Dasar"
+                        }]
                     }
-                },
-                "Profil Guru": {
-                    subtopics: {
-                        "Informasi Umum": {
-                            QnA: [{
-                                patterns: ["siapa guru"],
-                                responses: ["Guru Biologi: Ibu Siti, Guru Fisika: Pak Budi"]
-                            }]
-                        }
+                }
+            },
+            "Profil Guru": {
+                description: "Informasi pengajar",
+                subtopics: {
+                    "Guru Biologi": {
+                        QnA: [{
+                            patterns: ["siapa guru biologi", "pengajar biologi"],
+                            responses: [
+                                "Guru Biologi: Ibu Siti Nurhaliza, M.Pd.",
+                                "Pengajar Biologi: Ibu Siti (email: siti@sekolah.example.id)"
+                            ],
+                            photo: "images/default-teacher.png",
+                            jadwal: "Senin & Rabu (08.00-12.00)"
+                        }]
+                    },
+                    "Guru Fisika": {
+                        QnA: [{
+                            patterns: ["nama guru fisika", "pengajar fisika"],
+                            responses: [
+                                "Guru Fisika: Pak Budi Santoso, S.Pd.",
+                                "Pengajar Fisika: Pak Budi (HP: 0812-3456-7890)"
+                            ],
+                            photo: "images/default-teacher.png",
+                            jadwal: "Selasa & Kamis (09.00-13.00)"
+                        }]
                     }
                 }
             }
+        },
+        metadata: {
+            sumber_referensi: ["Data fallback sistem"],
+            last_updated: new Date().toISOString()
+        }
+    };
+    
+    addMessage(`
+        <div class="error-message">
+            <strong>Peringatan:</strong> Database offline. Menggunakan data dasar.<br>
+            <small>${error.message}</small>
+        </div>
+    `);
+}
+
+// Fungsi untuk preload gambar default
+function preloadDefaultImages() {
+    const defaultImages = [
+        'images/default-cell.png',
+        'images/default-teacher.png'
+    ];
+    
+    defaultImages.forEach(imgUrl => {
+        const img = new Image();
+        img.src = imgUrl;
+        img.onerror = () => {
+            console.warn(`Gambar default tidak ditemukan: ${imgUrl}`);
         };
-        addMessage(`<div class="error-message">Database offline. Menggunakan data dasar.</div>`);
-    }
+    });
 }
 
 // ================ [2] TEXT PROCESSING ================ //
