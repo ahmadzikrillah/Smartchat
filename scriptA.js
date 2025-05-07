@@ -327,6 +327,32 @@ function addMessage(content, isBot = true) {
     chatbox.scrollTop = chatbox.scrollHeight;
 }
 
+// ================ [5.5] USER INPUT PROCESSING ================ //
+async function processUserInput() {
+    const userInputElement = document.getElementById('userInput');
+    const userQuery = userInputElement.value.trim();
+
+    if (userQuery) {
+        addMessage(userQuery, false); // Tambahkan pertanyaan pengguna ke chatbox
+        userInputElement.value = ''; // Bersihkan input
+
+        const match = findBestMatch(userQuery);
+        let botResponse;
+
+        if (match) {
+            botResponse = await formatResponse(match);
+            sessionContext.currentTopic = match.topic;
+            sessionContext.lastSubtopic = match.subtopic;
+        } else {
+            botResponse = getFallbackResponse();
+        }
+
+        addMessage(botResponse, true); // Tambahkan jawaban bot ke chatbox
+        sessionContext.conversationHistory.push({ query: userQuery, response: botResponse });
+        saveConversation();
+    }
+}
+
 // ================ [6] EVENT HANDLERS ================ //
 function setupEventListeners() {
     document.getElementById('sendButton').addEventListener('click', processUserInput);
